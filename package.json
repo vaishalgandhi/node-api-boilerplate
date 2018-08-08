@@ -1,0 +1,30 @@
+{
+  "name": "node-api-boilerplate",
+  "version": "1.0.0",
+  "description": "Node.js api using express framework and mysql database and provide modular architecture",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vaishalgandhi/node-api-boilerplate.git"
+  },
+  "keywords": [
+    "Node.js",
+    "Express",
+    "MySql",
+    "Modular Architecture"
+  ],
+  "author": "Vaishal Gandhi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vaishalgandhi/node-api-boilerplate/issues"
+  },
+  "homepage": "https://github.com/vaishalgandhi/node-api-boilerplate#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "mysql": "^2.16.0"
+  }
+}
