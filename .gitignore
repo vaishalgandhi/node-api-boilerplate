@@ -1,0 +1,15 @@
+/nbproject/private/
+node_modules/
+.idea
+Homestead.json
+Homestead.yaml
+.DS_Store
+Thumbs.db
+*.sublime-project
+*.sublime-workspace
+.project
+nbproject/
+_ide_helper.php
+error.log
+Todo.rtf
+.vagrant
