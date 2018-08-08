@@ -1,5 +1,7 @@
 /nbproject/private/
 node_modules/
+package-lock.json
+.env
 .idea
 Homestead.json
 Homestead.yaml
