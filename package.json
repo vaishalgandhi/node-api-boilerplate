@@ -4,7 +4,15 @@
   "description": "Node.js api using express framework and mysql database and provide modular architecture",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "sequelize": "node_modules/.bin/sequelize",
+    "migrate": "sequelize db:migrate",
+    "rollback": "sequelize db:migrate:undo",
+    "seed": "sequelize db:seed:all",
+    "revert-seed": "sequelize db:seed:undo:all",
+    "generate-migration": "sequelize migration:generate --name",
+    "generate-model": "sequelize model:generate --name",
+    "generate-seed": "sequelize seed:generate --name"
   },
   "repository": {
     "type": "git",
@@ -27,6 +35,9 @@
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "lodash": "^4.17.10",
-    "mysql": "^2.16.0"
+    "moment": "^2.22.2",
+    "mysql2": "^1.6.1",
+    "sequelize": "^4.38.0",
+    "sequelize-cli": "^4.0.0"
   }
 }
