@@ -8,7 +8,7 @@
     "sequelize": "node_modules/.bin/sequelize",
     "migrate": "sequelize db:migrate",
     "rollback": "sequelize db:migrate:undo",
-    "seed": "sequelize db:seed:all",
+    "seed": "sequelize db:seed:all --debug",
     "revert-seed": "sequelize db:seed:undo:all",
     "generate-migration": "sequelize migration:generate --name",
     "generate-model": "sequelize model:generate --name",

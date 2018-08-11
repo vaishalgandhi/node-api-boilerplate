@@ -30,6 +30,10 @@ module.exports = {
         field: 'password',
         type: Sequelize.TEXT
       },
+      dob: {
+        field: 'dob',
+        type: Sequelize.DATEONLY
+      },
       status: {
         allowNull: false,
         field: 'status',
