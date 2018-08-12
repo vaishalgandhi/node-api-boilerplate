@@ -16,6 +16,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       sortname: {
+        allowNull: false,
         field: 'sortname',
         type: Sequelize.CHAR(3)
       },
