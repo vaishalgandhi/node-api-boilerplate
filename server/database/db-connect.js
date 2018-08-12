@@ -16,6 +16,7 @@ const databaseConfigurations = _.merge(config.db, {
   // so defining the timestamps for each model will be not necessary
   define: {
     underscored: true,
+    paranoid: true,
     freezeTableName: false,
     charset: 'utf8mb4',
     dialectOptions: {
