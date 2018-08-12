@@ -13,5 +13,17 @@ const config = require(`${__dirServer}config/`);
 // creating server by starting our application
 const app = require(`${__dirServer}`);
 
+// Listing our app on specified port
 app.listen(config.port);
 console.log('listening on http://localhost:' + config.port);
+
+// Handle Exit Event
+process
+	// Handle normal exits
+	.on('exit', (code) => {
+		process.exit(code);
+	})
+	// Handle CTRL+C
+	.on('SIGINT', () => {
+		process.exit(0);
+	});
