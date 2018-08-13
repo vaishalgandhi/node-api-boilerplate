@@ -2,9 +2,10 @@
 global.__dirRoot = __dirname + '/';
 global.__dirServer = __dirname + '/server/';
 global.__dirApi = __dirname + '/server/api/';
+global.__dirAuth = __dirname + '/server/auth/';
 global.__dirConfig = __dirname + '/server/config/';
 global.__dirDatabase = __dirname + '/server/database/';
-global.__dirMiddeleware = __dirname + '/server/middleware/';
+global.__dirMiddleware = __dirname + '/server/middleware/';
 global.__dirUtil = __dirname + '/server/util/';
 
 // setup config first before anything by requiring it

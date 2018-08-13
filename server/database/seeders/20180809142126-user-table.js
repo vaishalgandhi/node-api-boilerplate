@@ -1,12 +1,14 @@
 'use strict';
-var moment = require('moment');
+const moment = require('moment');
+const bcrypt = require('bcrypt');
+const salt = bcrypt.genSaltSync(10);
 
 const users = [
   {
     first_name: 'Admin',
     last_name: 'User',
     email: 'admin@admin.com',
-    password: '1234',
+    password: bcrypt.hashSync('1234', salt),
     dob: '1970-01-01',
     status: 1,
     is_confirmed: 1,
@@ -16,7 +18,7 @@ const users = [
     first_name: 'Front',
     last_name: 'User',
     email: 'user@user.com',
-    password: '1234',
+    password: bcrypt.hashSync('1234', salt),
     dob: '1970-01-01',
     status: 1,
     is_confirmed: 1,
