@@ -6,7 +6,9 @@ var config = {
   test: 'testing',
   stag: 'staging',
   prod: 'production',
-  port: process.env.APP_PORT || 3000
+  port: process.env.APP_PORT || 3000,
+  jwt_key: process.env.JWT_SECRET_KEY,
+  jwt_timeout: process.env.JWT_EXPIRY_TIME
 };
 
 process.env.NODE_ENV = process.env.APP_ENV || config.dev;

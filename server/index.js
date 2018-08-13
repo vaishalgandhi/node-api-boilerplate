@@ -2,12 +2,16 @@ const express   = require('express');
 const app       = express();
 const api 		= require('./api');
 const logger	= require(`${__dirUtil}/logger`);
+const auth 		= require('./auth/authRoutes');
 
 // setup the app middlware
 require('./middleware/appMiddlware')(app);
 
 // setup the api
 app.use('/api/', api);
+
+// Setup authentication routes
+app.use('/auth', auth);
 
 // Error  Handler
 app.use(function(err, req, res, next) {
