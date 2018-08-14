@@ -1,22 +1,23 @@
-var jwt = require('jsonwebtoken');
-var expressJwt = require('express-jwt');
-var config = require(`${__dirConfig}`);
-var checkToken = expressJwt({ secret: config.jwt_key });
-var User = require('../api/user/userModel');
+const jwt = require('jsonwebtoken');
+const expressJwt = require('express-jwt');
+const logger = require(`${__dirUtil}/logger`);
+const User = require(`${__dirApi}/user/userModel`);
+
+const config = require(`${__dirConfig}`);
+const checkToken = expressJwt({ secret: config.jwt_key });
 
 exports.decodeToken = function() {
   return function(req, res, next) {
-    // make it optional to place token on query string
-    // if it is, place it on the headers where it should be
-    // so checkToken can see it. See follow the 'Bearer 034930493' format
-    // so checkToken can see it and decode it
+    // Token can be passed in header or query string
+    // so if token is passed in query string then add that
+    // token in header authorization
     if (req.query && req.query.hasOwnProperty('access_token')) {
       req.headers.authorization = 'Bearer ' + req.query.access_token;
     }
 
-    // this will call next if token is valid
-    // and send error if its not. It will attached
-    // the decoded token to req.user
+    // This is pre-defined middleware by express-jwt which will
+    // send error back using res/next if not valid
+    // or if it is valid thenattach attach the user object in req
     checkToken(req, res, next);
   };
 };
@@ -26,14 +27,12 @@ exports.getLoggedInUser = function() {
     User.findById(req.user.id)
       .then(function(user) {
         if (!user) {
-          // if no user is found it was not
-          // it was a valid JWT but didn't decode
-          // to a real user in our DB. Either the user was deleted
-          // since the client got the JWT, or
-          // it was a JWT from some other source
+          // Check if token is decoded but that user
+          // is not found in out database
+          logger.error("User not found");
           res.status(401).send('Unauthorized');
         } else {
-          // update req.user with fresh user from token data
+          // If user is found then update req.user object
           req.user = user;
           next();
         }
@@ -45,8 +44,8 @@ exports.getLoggedInUser = function() {
 
 exports.verifyUser = function() {
   return function(req, res, next) {
-    var email = req.body.email;
-    var password = req.body.password;
+    const email = req.body.email;
+    const password = req.body.password;
 
     // if no email or password then send
     if (!email || !password) {
@@ -59,10 +58,12 @@ exports.verifyUser = function() {
     User.findOne({ where: { email: email } })
       .then(function(user) {
         if (!user) {
+          logger.error("No user with the given email");
           res.status(401).send('No user with the given email');
         } else {
-          // checking the passowords here
+          // Comparing hash password
           if (!user.authenticate(password)) {
+            logger.error("Wrong password");
             res.status(401).send('Wrong password');
           } else {
             // if everything is good,
@@ -79,7 +80,7 @@ exports.verifyUser = function() {
   };
 };
 
-// util method to sign tokens on signup
+// This method will generate JWT token for given credentials
 exports.signToken = function(user) {
   return jwt.sign(
     {id: user.id},
