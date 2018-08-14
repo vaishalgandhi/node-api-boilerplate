@@ -1,10 +1,13 @@
-var User = require('../api/user/userModel');
-var signToken = require('./authenticate').signToken;
+const User = require('../api/user/userModel');
+const authenticate = require('./authenticate');
 
 exports.login = function(req, res, next) {
-  // req.user will be there from the middleware
-  // verify user. Then we can just create a token
-  // and send it back for the client to consume
-  var token = signToken(req.user._id);
-  res.json({token: token});
+  // This route will called after it passes
+  // from verifyUser middleware and inside
+  // that middleware we attach user object
+  // to req object so we are using that user
+  // object to sign the jwt token and responed
+  // it back to client
+  const token = authenticate.signToken(req.user);
+  res.json({ token: token });
 };

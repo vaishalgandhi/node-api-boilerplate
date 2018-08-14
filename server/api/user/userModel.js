@@ -59,7 +59,7 @@ Model.prototype.generatePasswordHash = function (plainPassword) {
 // This method will convert our instance into object
 // Remove password property from the object
 Model.prototype.toJson = function () { 
-  const obj = this.toObject()
+  const obj = Object.assign({}, this.get());
   
   // Remove Password from the object
   delete obj.password;
