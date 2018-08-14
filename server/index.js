@@ -17,6 +17,7 @@ app.use('/auth', auth);
 app.use(function(err, req, res, next) {
   // if error thrown from jwt validation check
   if (err.name === 'UnauthorizedError') {
+  	logger.error(err);
     res.send({ 'status': 0, 'error': 'Invalid token'});
     return;
   }

@@ -56,7 +56,7 @@ exports.verifyUser = function() {
 
     // look user up in the DB so we can check
     // if the passwords match for the email
-    User.findOne({ email: email })
+    User.findOne({ where: { email: email } })
       .then(function(user) {
         if (!user) {
           res.status(401).send('No user with the given email');
@@ -80,6 +80,10 @@ exports.verifyUser = function() {
 };
 
 // util method to sign tokens on signup
-exports.signToken = function(id) {
-  return jwt.sign( {id: id}, config.jwt_key, {expiresIn: config.jwt_timeout} );
+exports.signToken = function(user) {
+  return jwt.sign(
+    {id: user.id},
+    config.jwt_key,
+    {expiresIn: config.jwt_timeout}
+  );
 };
