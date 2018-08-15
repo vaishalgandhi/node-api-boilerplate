@@ -1,29 +1,31 @@
 const _ = require('lodash');
 const config = require('../config/');
 
+// Package will automatically assign colors to String.prototype
+require('colors');
+
 // create a noop (no operation) function for when loggin is disabled
 const noop = function(){};
 
-// check if loggin is enabled in the config
+// check if loggig is enabled in the config
 // if it is, then use console.log
 // if not then noop
 const consoleLog = config.logging ? console.log.bind(console) : noop;
 
-const logger = {
+var logger = {
   log: function() {
+    var tag = '[ ✨ LOG ✨ ]'.green;
     // arguments is an array like object with all the passed
     // in arguments to this function
-    const args = _.toArray(arguments)
+    var args = _.toArray(arguments)
       .map(function(arg) {
         if(typeof arg === 'object') {
           // turn the object to a string so we
           // can log all the properties and color it
-          const string = JSON.stringify(arg, 2);
-          return string;
+          var string = JSON.stringify(arg, null, 2);
+          return tag + '  ' + string.cyan;
         } else {
-          // coerce to string to color
-          arg+='';
-          return arg;
+          return tag + '  ' + arg.cyan;
         }
       });
 
@@ -34,7 +36,15 @@ const logger = {
   },
 
   error: function() {
-    consoleLog.apply(console, _.toArray(arguments));
+    var args = _.toArray(arguments)
+      .map(function(arg) {
+        arg = arg.stack || arg;
+        var name = arg.name || '[ ❌ ERROR ❌ ]';
+        var log = name.yellow + '  ' + arg.red;
+        return log;
+      });
+
+    consoleLog.apply(console, args);
   }
 };
 
