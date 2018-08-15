@@ -1,22 +1,15 @@
-// defining global variable for the application
-global.__dirRoot = __dirname + '/';
-global.__dirServer = __dirname + '/server/';
-global.__dirApi = __dirname + '/server/api/';
-global.__dirAuth = __dirname + '/server/auth/';
-global.__dirConfig = __dirname + '/server/config/';
-global.__dirDatabase = __dirname + '/server/database/';
-global.__dirMiddleware = __dirname + '/server/middleware/';
-global.__dirUtil = __dirname + '/server/util/';
-
-// setup config first before anything by requiring it
-const config = require(`${__dirServer}config/`);
+// Requireing globals will set all global variables
+require('./server/globals');
 
 // creating server by starting our application
 const app = require(`${__dirServer}`);
 
+// grab the defined port from config file
+const { port } = require(`${__dirServer}config/`);
+
 // Listing our app on specified port
-app.listen(config.port);
-console.log('listening on http://localhost:' + config.port);
+app.listen(port);
+console.log('listening on http://localhost:' + port);
 
 // Handle Exit Event
 process

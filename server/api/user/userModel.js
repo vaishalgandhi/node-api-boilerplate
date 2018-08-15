@@ -3,20 +3,30 @@
 const Sequelize = require('sequelize');
 const db = require(`${__dirDatabase}/db-connect`);
 const bcrypt = require('bcrypt');
+const moment = require('moment');
 
 const Model = db.define('users',
   {
     first_name: {
       type: Sequelize.STRING(100),
-      allowNull: false
+      allowNull: false,
+      validate: {
+        isAlphanumeric: true
+      }
     },
     last_name: {
-      type: Sequelize.STRING(100)
+      type: Sequelize.STRING(100),
+      validate: {
+        isAlphanumeric: true
+      }
     },
     email: {
       type: Sequelize.STRING(191),
       unique: true,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        isEmail: true
+      }
     },
     password: {
       type: Sequelize.TEXT,
@@ -66,9 +76,9 @@ Model.prototype.toJson = function () {
   return obj;
 }
 
-// This is hook that will call before any instance is saved
-Model.beforeSave(user => {
-  user.password = this.generatePasswordHash(user.password);
+// This is hook that will call before any user is created
+Model.beforeCreate(user => {
+  user.password = user.generatePasswordHash(user.password);
 });
 
 module.exports = Model;
