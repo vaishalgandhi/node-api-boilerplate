@@ -2,9 +2,10 @@
   "name": "node-api-boilerplate",
   "version": "1.0.0",
   "description": "Node.js api using express framework and mysql database and provide modular architecture",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "node main.js",
+    "dev": "nodemon main.js",
     "sequelize": "node_modules/.bin/sequelize",
     "db-connection": "node server/database/test-connection.js --debug",
     "migrate": "sequelize db:migrate",
@@ -20,9 +21,10 @@
     "url": "git+https://github.com/vaishalgandhi/node-api-boilerplate.git"
   },
   "keywords": [
-    "Node.js",
+    "Node",
     "Express",
     "MySql",
+    "Sequelize",
     "Modular Architecture"
   ],
   "author": "Vaishal Gandhi",
@@ -49,5 +51,9 @@
     "mysql2": "^1.6.1",
     "sequelize": "^4.38.0",
     "sequelize-cli": "^4.0.0"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0"
   }
 }
