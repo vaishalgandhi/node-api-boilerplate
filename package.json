@@ -2,10 +2,10 @@
   "name": "node-api-boilerplate",
   "version": "1.0.0",
   "description": "Node.js api using express framework and mysql database and provide modular architecture",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
+    "start": "node main.js",
+    "dev": "nodemon main.js",
     "sequelize": "node_modules/.bin/sequelize",
     "db-connection": "node server/database/test-connection.js --debug",
     "migrate": "sequelize db:migrate",
