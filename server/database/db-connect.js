@@ -39,16 +39,4 @@ const databaseConfigurations = _.merge(config.db, {
   }
 });
 
-
-const sequelize = new Sequelize(databaseConfigurations);
-
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log('Connection has been established successfully.');
-  })
-  .catch(err => {
-    console.error('Unable to connect to the database:', err);
-  });
-
-module.exports = sequelize;
+module.exports = new Sequelize(databaseConfigurations);
