@@ -49,8 +49,7 @@ exports.verifyUser = function() {
 
     // if no email or password then send
     if (!email || !password) {
-      res.status(400).send('You need a email and password');
-      return;
+      throwUserDefineError('You need a email and password', 400);
     }
 
     // look user up in the DB so we can check

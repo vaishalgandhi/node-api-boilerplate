@@ -10,3 +10,7 @@ global.__dirConfig = __dirname + '/config/';
 global.__dirDatabase = __dirname + '/database/';
 global.__dirMiddleware = __dirname + '/middleware/';
 global.__dirUtil = __dirname + '/util/';
+
+global.throwUserDefineError = function(errorMessage, errorCode = 500) {
+	next({ 'errorMessage': errorMessage, 'errorCode': errorCode });
+}

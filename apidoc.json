@@ -1,0 +1,7 @@
+{
+  "name": "Node Api Boilerplate",
+  "version": "1.0.0",
+  "description": "Node.js api using express framework and mysql database and provide modular architecture",
+  "title": "Documentation | Node Api Boilerplate",
+  "url" : "https://localhost:3000/"
+}

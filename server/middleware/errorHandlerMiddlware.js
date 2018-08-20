@@ -1,16 +1,20 @@
 const logger = require(`${__dirUtil}/logger`);
 
 module.exports = function() {
-  return function(err, req, res, next) {
+  return function(error, req, res, next) {
+    logger.error(error);
     // if error thrown from jwt validation check
-    if (err.name === 'UnauthorizedError') {
-      logger.error(err);
-      res.send({ 'status': 0, 'error': 'Invalid token'});
-      return;
+    if (typeof error === Object) {
+      if(error.hasOwnProperty('errorMessage') && error.hasOwnProperty('errorCode')) {
+        return res.status(error.errorCode).send({ 'errors': [ error.errorMessage ] });        
+      }
     }
 
-    logger.error(err.stack);
+    // if error thrown from jwt validation check
+    if (error.name === 'UnauthorizedError') {
+      return res.status(401).send({ 'errors': ['Invalid token'] });
+    }
 
-    res.send({ 'status': 0, 'error': 'Internal Server Error'});
+    return res.status(500).send({' errors': ['Internal Server Error'] });
   }
 };
