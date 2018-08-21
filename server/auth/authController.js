@@ -8,24 +8,41 @@ const authenticate = require('./authenticate');
  * @api {post} auth/register Registration
  * @apiGroup Authentication
  *
- * @apiParam {Number} id Users unique ID.
+ * @apiParam {String} first_name First name
+ * @apiParam {String} last_name Last name
+ * @apiParam {String} email Email Address
+ * @apiParam {String} password Password
+ * @apiParam {String} dob Date of birth (DD-MM-YYYY)
  *
- * @apiSuccess {String} firstname Firstname of the User.
- * @apiSuccess {String} lastname  Lastname of the User.
+ * @apiSuccess {String} message Message to display when user is created.
+ * @apiSuccess {Json} data  JSON object of newly created user.
  *
- * @apiSuccessExample Success-Response:
+ * @apiSuccessExample Success-Response
  *     HTTP/1.1 200 OK
  *     {
- *       "firstname": "John",
- *       "lastname": "Doe"
+ *       "message": "User created successfully",
+ *       "data": <json object of newly created user>
  *     }
  *
- * @apiError UserNotFound The id of the User was not found.
+ * @apiError EmptyInputValidation If all fields are blank
  *
- * @apiErrorExample Error-Response:
- *     HTTP/1.1 404 Not Found
+ * @apiErrorExample EmptyInputValidation
+ *     HTTP/1.1 422 Unprocessable Entity
  *     {
- *       "error": "UserNotFound"
+ *        "errors": [
+            "First name field is required",
+            "Last name field is required",
+            "Email field is requied"
+          ]
+ *     }
+ * @apiError DuplicateEmail If given email address is already exist
+ *
+ * @apiErrorExample DuplicateEmail
+ *     HTTP/1.1 500 Internal server error
+ *     {
+ *        "errors": [
+            "email must be unique"
+          ]
  *     }
  */
 exports.register = function(req, res, next) {
@@ -55,24 +72,34 @@ exports.register = function(req, res, next) {
  *
  * @apiSuccess {String} token JWT token of authenticated user
  *
- * @apiSuccessExample Success-Response:
+ * @apiSuccessExample Success-Response
  *     HTTP/1.1 200 OK
  *     {
  *       "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
  *     }
  *
- * @apiError UserNotFound The id of the User was not found
+ * @apiError EmptyEmailPassword If email or password is empty
  *
- * @apiErrorExample Error-Response:
- *     HTTP/1.1 404 Not Found
+ * @apiErrorExample EmptyEmailPassword
+ *     HTTP/1.1 400 Bad Request
  *     {
- *       "error": "UserNotFound"
+ *       "errors": ["You need a email and password"]
  *     }
  *
- * @apiErrorExample Response (example):
- *     HTTP/1.1 401 Not Authenticated
+ * @apiError UserNotFound The email of the User was not found
+ *
+ * @apiErrorExample UserNotFound
+ *     HTTP/1.1 401 Unauthorized
  *     {
- *       "error": "NoAccessRight"
+ *       "error": ["No user with the given email"]
+ *     }
+ *
+ * @apiError IncorrectPassword If password is not correct
+ * 
+ * @apiErrorExample IncorrectPassword
+ *     HTTP/1.1 401 Unauthorized
+ *     {
+ *       "error": ["Wrong password"]
  *     }
  */
 exports.login = function(req, res, next) {
