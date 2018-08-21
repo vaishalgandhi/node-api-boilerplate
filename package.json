@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node main.js",
     "dev": "nodemon main.js",
+    "doc": "apidoc -i server/ -o apidoc/",
     "sequelize": "node_modules/.bin/sequelize",
     "db-connection": "node server/database/test-connection.js --debug",
     "migrate": "sequelize db:migrate",

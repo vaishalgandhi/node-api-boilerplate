@@ -6,6 +6,8 @@ const User = require(`${__dirApi}/user/userModel`);
 const config = require(`${__dirConfig}`);
 const checkToken = expressJwt({ secret: config.jwt_key });
 
+const GeneralError = require(`${__dirUtil}/generalError`);
+
 exports.decodeToken = function() {
   return function(req, res, next) {
     // Token can be passed in header or query string
@@ -30,7 +32,7 @@ exports.getLoggedInUser = function() {
           // Check if token is decoded but that user
           // is not found in out database
           logger.error("User not found");
-          res.status(401).send('Unauthorized');
+          next(new GeneralError('Unauthorized! User not found', 401));
         } else {
           // If user is found then update req.user object
           req.user = user;
@@ -49,8 +51,7 @@ exports.verifyUser = function() {
 
     // if no email or password then send
     if (!email || !password) {
-      res.status(400).send('You need a email and password');
-      return;
+      throw new GeneralError('You need a email and password', 400);
     }
 
     // look user up in the DB so we can check
@@ -59,12 +60,12 @@ exports.verifyUser = function() {
       .then(function(user) {
         if (!user) {
           logger.error("No user with the given email");
-          res.status(401).send('No user with the given email');
+          next(new GeneralError('No user with the given email', 401));
         } else {
           // Comparing hash password
           if (!user.authenticate(password)) {
             logger.error("Wrong password");
-            res.status(401).send('Wrong password');
+            next(new GeneralError('Wrong password', 401));
           } else {
             // if everything is good,
             // then attach to req.user
@@ -74,8 +75,8 @@ exports.verifyUser = function() {
             next();
           }
         }
-      }, function(err) {
-        next(err);
+      }).catch((error) => {
+        next(error);
       });
   };
 };
