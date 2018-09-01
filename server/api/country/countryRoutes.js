@@ -1,10 +1,10 @@
-const router = require('express').Router();
-const controller = require('./countryController');
+const router = require("express").Router();
+const controller = require("./countryController");
 
-router.param('id', controller.params);
+router.param("id", controller.params);
 
-router.get('/', controller.index);
+router.get("/", controller.index);
 
-router.get('/:id', controller.getById);
+router.get("/:id", controller.getById);
 
 module.exports = router;

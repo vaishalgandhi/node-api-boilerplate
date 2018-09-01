@@ -22,5 +22,16 @@
 
     // disable rules from base configurations
     "no-console": "off",
+    "no-unused-vars": 1
+  },
+  "globals": {
+    "__dirRoot": true,
+    "__dirServer": true,
+    "__dirApi": true,
+    "__dirAuth": true,
+    "__dirConfig": true,
+    "__dirDatabase": true,
+    "__dirMiddleware": true,
+    "__dirUtil": true
   }
 }
