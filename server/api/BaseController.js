@@ -1,26 +1,15 @@
 class BaseController
 {
-	/**
-     * default status code
-     */
-    protected const statusCode = 200;
-
-    /**
-     * get the status code
-     */
-    getStatusCode()
-    {
-        return this.statusCode;
+    constructor() {
+        this.setStatuscode(200);
     }
 
-    /**
-     * set the status codeā
-     */
-    setStatusCode(code)
-    {
-        this.statusCode = code;
+    getStatuscode() {
+        return this.statuscode;
+    }
 
-        return this;
+    setStatuscode(code) {
+        this.statuscode = code;
     }
 
     /**
@@ -31,7 +20,7 @@ class BaseController
     	return {
     		"status" : 0,
     		"status_code" : 500,
-    		"data" : []
+    		"data" : [],
     		"message" : "Something went wrong",
     	};
     }
@@ -41,7 +30,8 @@ class BaseController
      */
     respond(data, message)
     {
-    	const res = this.defaultResponseStructure();
+        let test = this;
+        const res = test.defaultResponseStructure();
 
     	res.status_code = 200;
     	res.message = message;
