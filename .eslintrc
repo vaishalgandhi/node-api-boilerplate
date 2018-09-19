@@ -11,14 +11,14 @@
   },
   "rules": {
     // enable additional rules
-    "indent": ["error", 4],
+    "indent": ["error", 4, { "SwitchCase": 2 }],
     "comma-spacing": ["error", { "before": false, "after": true }],
     "linebreak-style": ["error", "unix"],
     "quotes": ["error", "double"],
     "semi": ["error", "always"],
 
     // override default options for rules from base configurations
-    "comma-dangle": ["error", "always"],
+    //"comma-dangle": ["error", "always"],
     "no-cond-assign": ["error", "always"],
 
     // disable rules from base configurations
