@@ -1,6 +1,6 @@
 const express   			= require("express");
-const appMiddlware			= require(`${__dirMiddleware}/appMiddlware`);
-const errorHandlerMiddlware	= require(`${__dirMiddleware}/errorHandlerMiddlware`);
+const ApplicationMiddleware	= require(`${__dirMiddleware}/ApplicationMiddleware`);
+const ErrorHandlerMiddleware= require(`${__dirMiddleware}/ErrorHandlerMiddleware`);
 
 const api 		= require("./api");
 const auth 		= require("./auth/authRoutes");
@@ -15,7 +15,7 @@ class Server
 	}
 
 	middleware () {
-		appMiddlware(this.app);
+		ApplicationMiddleware.init(this.app);
 	}
 
 	apiSetup() {
@@ -27,7 +27,7 @@ class Server
 	}
 
 	errorHandler() {
-		this.app.use(errorHandlerMiddlware());
+		this.app.use(ErrorHandlerMiddleware);
 	}
 }
 

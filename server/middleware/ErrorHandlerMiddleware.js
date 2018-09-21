@@ -1,7 +1,9 @@
 const logger = require(`${__dirUtil}/logger`);
 const { logging, } = require(`${__dirServer}/config/`);
 
-module.exports = function() {
+class ErrorHandlerMiddleware
+{
+  constructor() {
     return function(error, req, res, next) {
         logger.error(error);
 
@@ -26,4 +28,7 @@ module.exports = function() {
 
         return res.status(500).send({" errors": ["Internal Server Error", ], });
     };
-};
+  }
+}
+
+module.exports = ErrorHandlerMiddleware

@@ -13,17 +13,25 @@ class App
 		this.port = port;
 		this.app = app;
 		this.initalizeApplication();
+		this.handleUncaughtException();
 		this.handleProcessEvent();
 	}
 
+	// Listing our app on specified port
 	initalizeApplication() {
-		// Listing our app on specified port
 		this.app.listen(this.port);
 		console.log("listening on http://localhost:" + this.port);
 	}
 
+	// Handle Uncaught Exception
+	handleUncaughtException () {
+		process.on('uncaughtException', () => {
+			process.exit(1);
+		})
+	}
+
+	// Handle Exit Event
 	handleProcessEvent() {
-		// Handle Exit Event
 		process
 			// Handle normal exits
 		    .on("exit", (code) => {
