@@ -1,54 +1,32 @@
 class BaseController
 {
-    constructor() {
-        this.setStatuscode(200);
-    }
-
-    getStatuscode() {
-        return this.statuscode;
-    }
-
-    setStatuscode(code) {
-        this.statuscode = code;
-    }
-
-    /**
-     * return the default response
-     */
-    defaultResponseStructure()
-    {
-    	return {
-    		"status" : 0,
-    		"status_code" : 500,
-    		"data" : [],
-    		"message" : "Something went wrong",
-    	};
-    }
-
     /**
      * respond.
      */
-    respond(data, message)
-    {
-        let test = this;
-        const res = test.defaultResponseStructure();
+    respond (data, message) {
+        const res = {"status" : 0};
 
-    	res.status_code = 200;
-    	res.message = message;
-    	res.data = data;
+        res.status_code = 200;
+        res.message = message;
+        res.data = data;
+        res.errors = null;
 
-    	return res;
+        return res;
     }
 
-    respondWithError(data, message)
-    {
-    	const res = this.defaultResponseStructure();
+    respondWithError (error, message, code) {
+        if(code === undefined) {
+            code = 500;
+        }
 
-    	res.status_code = 500;
-    	res.message = message;
-    	res.data = data;
+        const res = {"status" : 1};
 
-    	return res;
+        res.status_code = code;
+        res.message = message;
+        res.errors = error;
+        res.data = [];
+
+        return res;
     }
 }
 

@@ -4,10 +4,6 @@ const BaseController = require(`${__dirApi}BaseController`);
 
 class CountryController extends BaseController
 {
-    constructor() {
-        super();
-    }
-
     params(req, res, next, id) {
         if(isNaN(id)) {
             next(new Error("Id should be numeric"));
@@ -17,37 +13,40 @@ class CountryController extends BaseController
             where: { id: id, },
             include: ["states"],
         })
-        .then(country => {
-            req.country = country;
-            next();
-        })
-        .catch(err => {
-            logger.log(err);
-            next(err);
-        });
+            .then(country => {
+                req.country = country;
+                next();
+            })
+            .catch(err => {
+                logger.log(err);
+                next(err);
+            });
     }
 
     index(req, res, next) {
-        const queryString = req.query;
-        const queryConfig = {};
+        let queryString = req.query;
+        let queryConfig = {};
 
         if(queryString.hasOwnProperty("dropdown") && queryString.dropdown == "true") {
             queryConfig.attributes = ["id", "name", ];
         }
 
-        Model.findAll(queryConfig).then(projects => {
-            res.send(this.respond({ "satus": 0, "data": projects, }));
+        Model.findAll(queryConfig).then(countries => {
+            res.send(super.respond(countries, null));
         }).catch(error => {
             logger.log(error);
-            res.send({ "satus": 1, "error": error, });
+            res.send(super.respondWithError(error, null, 500));
         });
     }
 
     getById(req, res, next) {
-        const country = req.country;
-        console.log();
-        res.send(super.respond({ "satus": 1, "data": country, }));
-        res.send({ "satus": 1, "data": country, });
+        let country = req.country;
+
+        if(country === null) {
+            res.send(super.respondWithError(["Country not found"], "Country not found", 404));
+        } else {
+            res.send(super.respond(country, null));
+        }
     }
 }
 

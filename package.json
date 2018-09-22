@@ -16,7 +16,7 @@
     "generate-migration": "sequelize migration:generate --name",
     "generate-model": "sequelize model:generate --name",
     "generate-seed": "sequelize seed:generate --name",
-    "lint": "eslint --ignore-path .gitignore ."
+    "lint": "eslint --fix --ignore-path .gitignore ."
   },
   "repository": {
     "type": "git",
@@ -56,6 +56,7 @@
     "sequelize-cli": "^4.0.0"
   },
   "devDependencies": {
+    "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.26.0"
   }

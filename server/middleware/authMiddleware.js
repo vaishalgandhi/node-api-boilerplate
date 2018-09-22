@@ -1,4 +1,3 @@
-const express       = require("express");
 const authenticate  = require(`${__dirAuth}/authenticate`);
 
 // Authentication middleware is group of two middleware
