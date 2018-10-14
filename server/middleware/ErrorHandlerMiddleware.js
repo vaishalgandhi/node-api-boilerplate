@@ -1,7 +1,7 @@
 const logger = require(`${__dirUtil}/logger`);
 const { logging, } = require(`${__dirServer}/config/`);
 
-module.exports = function(error, req, res, next) {
+module.exports = (error, req, res, next) => {
     logger.error(error);
 
     // response database error only if logging is true otherwise show internal server error

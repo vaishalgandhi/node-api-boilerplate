@@ -15,11 +15,11 @@ class BaseController
     }
 
     respondWithError (error, message, code) {
+        const res = {"status" : 1};
+
         if(code === undefined) {
             code = 500;
         }
-
-        const res = {"status" : 1};
 
         res.status_code = code;
         res.message = message;
