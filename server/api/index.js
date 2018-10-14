@@ -1,12 +1,23 @@
-'use strict';
-const router = require('express').Router();
-const countryModule = require('./country/countryRoutes');
-const userModule = require('./user/userRoutes');
+"use strict";
+const ApplicationRoutes = require("./../ApplicationRoutes");
+const countryModule = require("./country/countryRoutes");
+const userModule = require("./user/userRoutes");
 
-// api router will mount other routers
-// for all our resources
-router.use('/countries', countryModule);
+class ApiRoutes extends ApplicationRoutes
+{
+    constructor() {
+        super();
+        this.countryRoute();
+        this.userRoute();
+    }
 
-router.use('/users', userModule);
+    countryRoute() {
+        this.router.use("/countries", countryModule);
+    }
 
-module.exports = router;
+    userRoute() {
+        this.router.use("/users", userModule);
+    }
+}
+
+module.exports = new ApiRoutes().router;

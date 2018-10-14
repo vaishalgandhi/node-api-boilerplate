@@ -1,0 +1,38 @@
+{
+  "env": {
+    "node": true,
+    "commonjs": true,
+    "es6": true,
+  },
+  "extends": "eslint:recommended",
+  "parserOptions": {
+    "ecmaVersion": 2017,
+    "sourceType": "module",
+  },
+  "rules": {
+    // enable additional rules
+    "indent": ["error", 4, { "SwitchCase": 2 }],
+    "comma-spacing": ["error", { "before": false, "after": true }],
+    "linebreak-style": ["error", "unix"],
+    "quotes": ["error", "double"],
+    "semi": ["error", "always"],
+
+    // override default options for rules from base configurations
+    //"comma-dangle": ["error", "always"],
+    "no-cond-assign": ["error", "always"],
+
+    // disable rules from base configurations
+    "no-console": "off",
+    "no-unused-vars": 1
+  },
+  "globals": {
+    "__dirRoot": true,
+    "__dirServer": true,
+    "__dirApi": true,
+    "__dirAuth": true,
+    "__dirConfig": true,
+    "__dirDatabase": true,
+    "__dirMiddleware": true,
+    "__dirUtil": true
+  }
+}

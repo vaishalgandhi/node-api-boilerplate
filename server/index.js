@@ -1,23 +1,34 @@
-const express   			= require('express');
-const app       			= express();
-const appMiddlware			= require(`${__dirMiddleware}/appMiddlware`);
-const errorHandlerMiddlware	= require(`${__dirMiddleware}/errorHandlerMiddlware`);
+const express   			= require("express");
+const ApplicationMiddleware	= require(`${__dirMiddleware}/ApplicationMiddleware`);
+const ErrorHandlerMiddleware= require(`${__dirMiddleware}/ErrorHandlerMiddleware`);
 
-const api 		= require('./api');
-const auth 		= require('./auth/authRoutes');
+const api 		= require("./api");
+const auth 		= require("./auth/authRoutes");
 
-// setup the app middlware
-appMiddlware(app);
+class Server
+{
+    constructor() {
+        this.app = express();
+        this.middleware();
+        this.apiSetup();
+        this.errorHandler();
+    }
 
-// setup the api
-app.use('/api/', api);
+    middleware () {
+        ApplicationMiddleware.init(this.app);
+    }
 
-// Setup authentication routes
-app.use('/auth', auth);
+    apiSetup() {
+        // Setup authentication routes
+        this.app.use("/api/", api);
 
-// Centralize Error  Handler
-app.use(errorHandlerMiddlware());
+        // setup other api routes
+        this.app.use("/auth", auth);
+    }
 
+    errorHandler() {
+        this.app.use(ErrorHandlerMiddleware);
+    }
+}
 
-// export the app for testing / web application
-module.exports = app;
+module.exports = new Server().app;

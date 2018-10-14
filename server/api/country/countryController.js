@@ -1,44 +1,53 @@
-const Model = require('./countryModel');
-const _ = require('lodash');
-const logger = require('../../util/logger');
-const stateModel = require(`./../state/stateModel`);
+const Model = require("./countryModel");
+const logger = require("../../util/logger");
+const BaseController = require(`${__dirApi}BaseController`);
 
-exports.params = function(req, res, next, id) {
-  if(isNaN(id)) {
-    next(new Error('Id should be numeric'));
-  }
+class CountryController extends BaseController
+{
+    params(req, res, next, id) {
+        if(isNaN(id)) {
+            next(new Error("Id should be numeric"));
+        }
 
-  Model.findOne({
-      where: { id: id },
-      include: [`states`]
-    })
-    .then(country => {
-      req.country = country;
-      next();
-    })
-    .catch(err => {
-      logger.log(err);
-      next(err);
-    });
-};
+        Model.findOne({
+            where: { id: id, },
+            include: ["states"],
+        })
+            .then(country => {
+                req.country = country;
+                next();
+            })
+            .catch(err => {
+                logger.log(err);
+                next(err);
+            });
+    }
 
-exports.index = function(req, res, next) {
-  const queryString = req.query;
-  const queryConfig = {};
+    index(req, res, next) {
+        let queryString = req.query;
+        let queryConfig = {};
 
-  if(queryString.hasOwnProperty('dropdown') && queryString.dropdown == 'true') {
-    queryConfig.attributes = ['id', 'name'];
-  }
+        if(queryString.hasOwnProperty("dropdown") && queryString.dropdown == "true") {
+            queryConfig.attributes = ["id", "name", ];
+        }
 
-  Model.findAll(queryConfig).then(projects => {
-    res.send({ 'satus': 0, 'data': projects });
-  }).catch(error => {
-    logger.log(error);
-    res.send({ 'satus': 1, 'error': error });
-  });
-};
+        Model.findAll(queryConfig).then(countries => {
+            res.send(super.respond(countries, null));
+        }).catch(error => {
+            logger.log(error);
+            res.send(super.respondWithError(error, null, 500));
+        });
+    }
 
-exports.getById = function(req, res, next) {
-  const country = req.country;
-  res.send({ 'satus': 1, 'data': country });
-};
+    getById(req, res, next) {
+        let country = req.country;
+
+        if(country === null) {
+            res.send(super.respondWithError(["Country not found"], "Country not found", 404));
+        } else {
+            res.send(super.respond(country, null));
+        }
+    }
+}
+
+module.exports = new CountryController();

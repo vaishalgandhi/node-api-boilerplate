@@ -1,12 +1,9 @@
-'use strict';
-const citiesArray = require('./data/cities').cities;
+"use strict";
 
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-      //return queryInterface.bulkInsert('cities', citiesArray, {});
-  },
+    up: (queryInterface, Sequelize) => {
+    },
 
-  down: (queryInterface, Sequelize) => {
-    //return queryInterface.bulkDelete('cities', null, {});
-  }
+    down: (queryInterface, Sequelize) => {
+    },
 };
