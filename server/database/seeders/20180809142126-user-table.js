@@ -1,6 +1,7 @@
-"use strict";
+
 const moment = require("moment");
 const bcrypt = require("bcrypt");
+
 const salt = bcrypt.genSaltSync(10);
 
 const users = [
@@ -27,11 +28,7 @@ const users = [
 ];
 
 module.exports = {
-    up: (queryInterface, Sequelize) => {
-        return queryInterface.bulkInsert("users", users, {});
-    },
+    up: (queryInterface, Sequelize) => queryInterface.bulkInsert("users", users, {}),
 
-    down: (queryInterface, Sequelize) => {
-        return queryInterface.bulkDelete("users", null, {});
-    },
+    down: (queryInterface, Sequelize) => queryInterface.bulkDelete("users", null, {}),
 };

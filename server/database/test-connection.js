@@ -1,7 +1,7 @@
 // Requireing globals will set all global variables
 require("./../globals");
 
-const sequelize = require("./db-connect");
+const { sequelize } = require("./db-connect");
 
 sequelize
     .authenticate()
@@ -9,7 +9,7 @@ sequelize
         console.log("Connection has been established successfully.");
         process.exit();
     })
-    .catch(err => {
+    .catch((err) => {
         console.error("Unable to connect to the database:", err);
         process.exit();
     });

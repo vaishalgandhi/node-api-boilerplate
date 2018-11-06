@@ -1,12 +1,12 @@
-const express   			= require("express");
+const express = require("express");
+
 const ApplicationMiddleware	= require(`${__dirMiddleware}/ApplicationMiddleware`);
-const ErrorHandlerMiddleware= require(`${__dirMiddleware}/ErrorHandlerMiddleware`);
+const ErrorHandlerMiddleware = require(`${__dirMiddleware}/ErrorHandlerMiddleware`);
 
 const api 		= require("./api");
 const auth 		= require("./auth/authRoutes");
 
-class Server
-{
+class Server {
     constructor() {
         this.app = express();
         this.middleware();
@@ -14,7 +14,7 @@ class Server
         this.errorHandler();
     }
 
-    middleware () {
+    middleware() {
         ApplicationMiddleware.init(this.app);
     }
 

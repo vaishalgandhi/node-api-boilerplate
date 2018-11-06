@@ -5,8 +5,7 @@ const helmet = require("helmet");
 const override = require("method-override");
 
 // setup global middleware here
-class ApplicationMiddleware
-{
+class ApplicationMiddleware {
     // initiallize all middleware and bind it to  application
     init(app) {
         this.app = app;

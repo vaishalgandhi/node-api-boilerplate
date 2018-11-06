@@ -1,12 +1,13 @@
 const _ = require("lodash");
 const moment = require("moment");
-const { sequelizeErrorHandler, } = require(`${__dirUtil}/helpers`);
-const User = require(`${__dirApi}/user/userModel`);
+
+const { sequelizeErrorHandler } = require(`${__dirUtil}/helpers`);
+const { User } = require(`${__dirDatabase}/db-connect`);
 const authenticate = require("./authenticate");
+
 const BaseController = require(`${__dirApi}BaseController`);
 
-class AuthController extends BaseController
-{
+class AuthController extends BaseController {
     /**
      * @api {post} auth/register Registration
      * @apiGroup Authentication
@@ -54,14 +55,14 @@ class AuthController extends BaseController
 
         // adding default active status in input object
         const input = _.extend(req.body, {
-            "status": 1,
+            status: 1,
         });
 
         User.create(input)
-            .then(user => {
-                res.send(super.respond({user : user.toJson()}, "User created successfully"));
+            .then((user) => {
+                res.send(super.respond({ user: user.toJson() }, "User created successfully"));
             })
-            .catch(error => {
+            .catch((error) => {
                 res.send(super.respondWithError(sequelizeErrorHandler(error), null, 500));
             });
     }
@@ -114,7 +115,7 @@ class AuthController extends BaseController
         // object to sign the jwt token and responed
         // it back to client
         const token = authenticate.signToken(req.user);
-        res.send(super.respond({ token: token }, "You have successfully login"));
+        res.send(super.respond({ token }, "You have successfully login"));
     }
 }
 

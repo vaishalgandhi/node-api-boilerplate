@@ -1,7 +1,7 @@
-var _ = require("lodash");
+const _ = require("lodash");
 require("dotenv").config();
 
-var config = {
+const config = {
     dev: "development",
     test: "testing",
     stag: "staging",
@@ -14,16 +14,16 @@ var config = {
 process.env.NODE_ENV = process.env.APP_ENV || config.dev;
 config.env = process.env.APP_ENV;
 
-var envConfig;
+let envConfig;
 // require could error out if
 // the file don't exist so lets try this statement
 // and fallback to an empty object if it does error out
 try {
-    envConfig = require("./" + config.env);
+    envConfig = require(`./${config.env}`);
     // just making sure the require actually
     // got something back :)
     envConfig = envConfig || {};
-} catch(e) {
+} catch (e) {
     envConfig = {};
 }
 

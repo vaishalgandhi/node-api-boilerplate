@@ -1,22 +1,22 @@
 const jwt = require("jsonwebtoken");
 const expressJwt = require("express-jwt");
+
 const logger = require(`${__dirUtil}/logger`);
-const User = require(`${__dirApi}/user/userModel`);
+const { User } = require(`${__dirDatabase}/db-connect`);
 
 const config = require(`${__dirConfig}`);
-const checkToken = expressJwt({ secret: config.jwt_key, });
+const checkToken = expressJwt({ secret: config.jwt_key });
 
 const GeneralError = require(`${__dirUtil}/generalError`);
 
-class AuthMiddleware
-{
+class AuthMiddleware {
     decodeToken() {
         return (req, res, next) => {
             // Token can be passed in header or query string
             // so if token is passed in query string then add that
             // token in header authorization
             if (req.query && req.query.hasOwnProperty("access_token")) {
-                req.headers.authorization = "Bearer " + req.query.access_token;
+                req.headers.authorization = `Bearer ${req.query.access_token}`;
             }
 
             // This is pre-defined middleware by express-jwt which will
@@ -29,7 +29,7 @@ class AuthMiddleware
     getLoggedInUser() {
         return (req, res, next) => {
             User.findById(req.user.id)
-                .then(function(user) {
+                .then((user) => {
                     if (!user) {
                         // Check if token is decoded but that user
                         // is not found in out database
@@ -40,7 +40,7 @@ class AuthMiddleware
                         req.user = user;
                         next();
                     }
-                }, function(err) {
+                }, (err) => {
                     next(err);
                 });
         };
@@ -58,8 +58,8 @@ class AuthMiddleware
 
             // look user up in the DB so we can check
             // if the passwords match for the email
-            User.findOne({ where: { email: email, }, })
-                .then(function(user) {
+            User.findOne({ where: { email } })
+                .then((user) => {
                     if (!user) {
                         logger.error("No user with the given email");
                         next(new GeneralError("No user with the given email", 401));
@@ -85,9 +85,9 @@ class AuthMiddleware
 
     signToken(user) {
         return jwt.sign(
-            {id: user.id, },
+            { id: user.id },
             config.jwt_key,
-            {expiresIn: config.jwt_timeout, }
+            { expiresIn: config.jwt_timeout },
         );
     }
 }

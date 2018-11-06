@@ -1,7 +1,6 @@
 const router = require("express").Router();
 
-class ApplicationRoutes
-{
+class ApplicationRoutes {
     constructor() {
         this.router = router;
     }

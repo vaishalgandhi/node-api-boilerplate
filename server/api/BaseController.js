@@ -1,10 +1,9 @@
-class BaseController
-{
+class BaseController {
     /**
      * respond.
      */
-    respond (data, message) {
-        const res = {"status" : 0};
+    respond(data, message) {
+        const res = { status: 0 };
 
         res.status_code = 200;
         res.message = message;
@@ -14,10 +13,10 @@ class BaseController
         return res;
     }
 
-    respondWithError (error, message, code) {
-        const res = {"status" : 1};
+    respondWithError(error, message, code) {
+        const res = { status: 1 };
 
-        if(code === undefined) {
+        if (code === undefined) {
             code = 500;
         }
 
