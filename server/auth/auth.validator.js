@@ -1,5 +1,3 @@
-
-
 const { buildCheckFunction } = require("express-validator/check");
 
 const checkBodyAndQuery = buildCheckFunction(["body", "query"]);

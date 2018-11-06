@@ -1,7 +1,7 @@
 const ApplicationRoutes = require("./../ApplicationRoutes");
 const verifyUser = require("./authenticate").verifyUser;
-const controller = require("./authController");
-const validator = require("./authValidator");
+const controller = require("./auth.controller");
+const validator = require("./auth.validator");
 
 class AuthRoutes extends ApplicationRoutes {
     constructor() {
