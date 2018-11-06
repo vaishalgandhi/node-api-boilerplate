@@ -1,23 +1,24 @@
-"use strict";
 
-const { buildCheckFunction, } = require("express-validator/check");
-const checkBodyAndQuery = buildCheckFunction(["body", "query", ]);
-const { validationErrorHandler, } = require(`${__dirUtil}/helpers`);
+
+const { buildCheckFunction } = require("express-validator/check");
+
+const checkBodyAndQuery = buildCheckFunction(["body", "query"]);
+const { validationErrorHandler } = require(`${__dirUtil}/helpers`);
 
 exports.register = [
     checkBodyAndQuery("first_name")
         .trim()
         .escape()
-        .exists({ checkFalsy: true, })
+        .exists({ checkFalsy: true })
         .withMessage("First name field is required"),
     checkBodyAndQuery("last_name")
         .trim()
         .escape()
-        .exists({ checkFalsy: true, })
+        .exists({ checkFalsy: true })
         .withMessage("Last name field is required"),
     checkBodyAndQuery("email")
         .trim()
-        .exists({ checkFalsy: true, })
+        .exists({ checkFalsy: true })
         .withMessage("Email field is requied"),
     checkBodyAndQuery("email")
         .trim()

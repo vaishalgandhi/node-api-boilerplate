@@ -1,6 +1,9 @@
-const _ = require("lodash");
-const config = require("./../config/");
-const Sequelize = require("sequelize");
+import fs from "fs";
+import path from "path";
+import _ from "lodash";
+import Sequelize from "sequelize";
+import config from "../config";
+import { loadAllModel, sanitizeModel } from "../util/helpers";
 
 // fetching application config and merge custom config for sequelize.js
 const databaseConfigurations = _.merge(config.db, {
@@ -39,4 +42,24 @@ const databaseConfigurations = _.merge(config.db, {
     },
 });
 
-module.exports = new Sequelize(databaseConfigurations);
+const sequelize = new Sequelize(databaseConfigurations);
+
+const db = {};
+
+loadAllModel(`${__dirname}/../api/`)
+    .forEach((file) => {
+        const model = sanitizeModel(sequelize, require(file).default);
+
+        db[model.name] = model;
+    });
+
+Object.keys(db).forEach((model) => {
+    if (db[model].associate) {
+        db[model].associate(db);
+    }
+});
+
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
+
+module.exports = db;

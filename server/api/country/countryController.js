@@ -1,48 +1,49 @@
-const Model = require("./countryModel");
+const { Country } = require(`${__dirDatabase}/db-connect`);
+const Model = Country;
 const logger = require("../../util/logger");
+
 const BaseController = require(`${__dirApi}BaseController`);
 
-class CountryController extends BaseController
-{
+class CountryController extends BaseController {
     params(req, res, next, id) {
-        if(isNaN(id)) {
+        if (isNaN(id)) {
             next(new Error("Id should be numeric"));
         }
 
         Model.findOne({
-            where: { id: id, },
-            include: ["states"],
+            where: { id },
+            include: ["State"],
         })
-            .then(country => {
+            .then((country) => {
                 req.country = country;
                 next();
             })
-            .catch(err => {
+            .catch((err) => {
                 logger.log(err);
                 next(err);
             });
     }
 
     index(req, res, next) {
-        let queryString = req.query;
-        let queryConfig = {};
+        const queryString = req.query;
+        const queryConfig = {};
 
-        if(queryString.hasOwnProperty("dropdown") && queryString.dropdown == "true") {
-            queryConfig.attributes = ["id", "name", ];
+        if (queryString.hasOwnProperty("dropdown") && queryString.dropdown == "true") {
+            queryConfig.attributes = ["id", "name"];
         }
 
-        Model.findAll(queryConfig).then(countries => {
+        Model.findAll(queryConfig).then((countries) => {
             res.send(super.respond(countries, null));
-        }).catch(error => {
+        }).catch((error) => {
             logger.log(error);
             res.send(super.respondWithError(error, null, 500));
         });
     }
 
     getById(req, res, next) {
-        let country = req.country;
+        const country = req.country;
 
-        if(country === null) {
+        if (country === null) {
             res.send(super.respondWithError(["Country not found"], "Country not found", 404));
         } else {
             res.send(super.respond(country, null));

@@ -3,8 +3,7 @@ const verifyUser = require("./authenticate").verifyUser;
 const controller = require("./authController");
 const validator = require("./authValidator");
 
-class AuthRoutes extends ApplicationRoutes
-{
+class AuthRoutes extends ApplicationRoutes {
     constructor() {
         super();
         this.registerRoute();

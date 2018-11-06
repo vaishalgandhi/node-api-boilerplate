@@ -1,10 +1,9 @@
-"use strict";
+
 const ApplicationRoutes = require("./../ApplicationRoutes");
 const countryModule = require("./country/countryRoutes");
 const userModule = require("./user/userRoutes");
 
-class ApiRoutes extends ApplicationRoutes
-{
+class ApiRoutes extends ApplicationRoutes {
     constructor() {
         super();
         this.countryRoute();

@@ -5,28 +5,27 @@ const config = require("../config/");
 require("colors");
 
 // create a noop (no operation) function for when loggin is disabled
-const noop = function(){};
+const noop = function () {};
 
 // check if loggig is enabled in the config
 // if it is, then use console.log
 // if not then noop
 const consoleLog = config.logging ? console.log.bind(console) : noop;
 
-var logger = {
-    log: function() {
-        var tag = "[ ✨ LOG ✨ ]".green;
+const logger = {
+    log() {
+        const tag = "[ ✨ LOG ✨ ]".green;
         // arguments is an array like object with all the passed
         // in arguments to this function
-        var args = _.toArray(arguments)
-            .map(function(arg) {
-                if(typeof arg === "object") {
+        const args = _.toArray(arguments)
+            .map((arg) => {
+                if (typeof arg === "object") {
                     // turn the object to a string so we
                     // can log all the properties and color it
-                    var string = JSON.stringify(arg, null, 2);
-                    return tag + "  " + string.cyan;
-                } else {
-                    return tag + "  " + arg.cyan;
+                    const string = JSON.stringify(arg, null, 2);
+                    return `${tag}  ${string.cyan}`;
                 }
+                return `${tag}  ${arg.cyan}`;
             });
 
         // call either console.log or noop here
@@ -35,12 +34,12 @@ var logger = {
         consoleLog.apply(console, args);
     },
 
-    error: function() {
-        var args = _.toArray(arguments)
-            .map(function(arg) {
+    error() {
+        const args = _.toArray(arguments)
+            .map((arg) => {
                 arg = arg.stack || arg;
-                var name = arg.name || "[ ❌ ERROR ❌ ]";
-                var log = name.yellow + "  " + arg.red;
+                const name = arg.name || "[ ❌ ERROR ❌ ]";
+                const log = `${name.yellow}  ${arg.red}`;
                 return log;
             });
 

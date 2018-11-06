@@ -7,9 +7,8 @@ const app = require(`${__dirServer}`);
 // grab the defined port from config file
 const { port } = require(`${__dirServer}config/`);
 
-class App
-{
-    constructor () {
+class App {
+    constructor() {
         this.port = port;
         this.app = app;
         this.initalizeApplication();
@@ -20,11 +19,11 @@ class App
     // Listing our app on specified port
     initalizeApplication() {
         this.app.listen(this.port);
-        console.log("listening on http://localhost:" + this.port);
+        console.log(`listening on http://localhost:${this.port}`);
     }
 
     // Handle Uncaught Exception
-    handleUncaughtException () {
+    handleUncaughtException() {
         process.on("uncaughtException", () => {
             process.exit(1);
         });

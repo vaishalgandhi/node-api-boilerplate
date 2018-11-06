@@ -1,4 +1,4 @@
-module.exports = function(controller, router) {
+module.exports = function (controller, router) {
     router.param("id", controller.params);
 
     router.route("/")
