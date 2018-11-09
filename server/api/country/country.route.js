@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const controller = require("./countryController");
+const controller = require("./country.controller");
 
 router.param("id", controller.params);
 

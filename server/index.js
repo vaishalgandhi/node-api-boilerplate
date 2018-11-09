@@ -4,7 +4,7 @@ const ApplicationMiddleware	= require(`${__dirMiddleware}/ApplicationMiddleware`
 const ErrorHandlerMiddleware = require(`${__dirMiddleware}/ErrorHandlerMiddleware`);
 
 const api 		= require("./api");
-const auth 		= require("./auth/authRoutes");
+const auth 		= require("./auth/auth.route");
 
 class Server {
     constructor() {

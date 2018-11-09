@@ -3,7 +3,7 @@ require("@babel/register")({
     plugins: [
         // Stage 2
         ["@babel/plugin-proposal-decorators", {
-		  legacy: true,
+            legacy: true,
         }],
         "@babel/plugin-proposal-function-sent",
         "@babel/plugin-proposal-export-namespace-from",
@@ -12,7 +12,7 @@ require("@babel/register")({
 
         // Stage 3
         ["@babel/plugin-proposal-class-properties", {
-		  loose: false,
+            loose: false,
         }],
     ],
 });
