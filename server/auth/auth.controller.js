@@ -1,13 +1,10 @@
+import _ from 'lodash';
+import moment from 'moment';
+import { sequelizeErrorHandler } from '@helpers';
+import { User } from '@db/db-connect';
+import authenticate from './authenticate';
+import BaseController from '@api/BaseController';
 import AuthRepository from "./auth.repository";
-
-const _ = require("lodash");
-const moment = require("moment");
-
-const { sequelizeErrorHandler } = require(`${__dirUtil}/helpers`);
-const { User } = require(`${__dirDatabase}/db-connect`);
-const authenticate = require("./authenticate");
-
-const BaseController = require(`${__dirApi}BaseController`);
 
 class AuthController extends BaseController {
     constructor() {

@@ -1,6 +1,6 @@
-const BaseRepository = require(`${__dirApi}/BaseRepository`);
-const { User } = require(`${__dirDatabase}/db-connect`);
-const { sequelizeErrorHandler } = require(`${__dirUtil}/helpers`);
+import BaseRepository from '@api/BaseRepository';
+import { User } from '@db/db-connect';
+import { sequelizeErrorHandler } from '@helpers';
 
 class AuthRepository extends BaseRepository {
     constructor() {

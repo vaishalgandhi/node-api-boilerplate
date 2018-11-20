@@ -1,5 +1,5 @@
-const BaseRepository = require(`${__dirApi}/BaseRepository`);
-const { Country } = require(`${__dirDatabase}/db-connect`);
+import BaseRepository from '@api/BaseRepository';
+import { Country } from '@db/db-connect';
 
 class CountryRepository extends BaseRepository {
     constructor() {

@@ -1,7 +1,6 @@
 const router = require("express").Router();
-const UserController = require("./user.controller");
-
-const authMiddleware = require(`${__dirMiddleware}/authMiddleware`);
+import UserController from './user.controller';
+import authMiddleware from '@middleware/authMiddleware';
 
 class UserRoutes {
     constructor() {

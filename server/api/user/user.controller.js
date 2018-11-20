@@ -1,7 +1,6 @@
 import UserRepository from "./user.repository";
-import GeneralError from "../../util/generalError";
-
-const BaseController = require(`${__dirApi}BaseController`);
+import GeneralError from "@util/generalError";
+import BaseController from '@api/BaseController';
 
 class UserController extends BaseController {
     constructor() {

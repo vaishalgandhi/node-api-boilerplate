@@ -3,7 +3,7 @@ import GeneralError from "../../util/generalError";
 
 const logger = require("../../util/logger");
 
-const BaseController = require(`${__dirApi}BaseController`);
+const BaseController = require(`@api/BaseController`);
 
 class CountryController extends BaseController {
     constructor() {

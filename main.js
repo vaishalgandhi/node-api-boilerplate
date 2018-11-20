@@ -17,7 +17,11 @@ require("@babel/register")({
     ],
 });
 
+// Includes a custom regenerator runtime and core-js.
 require("babel-polyfill");
+
+// Create aliases of directories and register custom module paths
+require('module-alias/register');
 
 // Import the rest of our application.
 module.exports = require("./index.js");

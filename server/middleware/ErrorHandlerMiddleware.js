@@ -1,5 +1,5 @@
-const logger = require(`${__dirUtil}/logger`);
-const { logging } = require(`${__dirServer}/config/`);
+import logger from '@util/logger';
+import { logging } from '@config';
 
 module.exports = (error, req, res, next) => {
     const errorResponse = {

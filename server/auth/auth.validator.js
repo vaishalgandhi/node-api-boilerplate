@@ -1,7 +1,7 @@
-const { buildCheckFunction } = require("express-validator/check");
+import { buildCheckFunction } from 'express-validator/check';
+import { validationErrorHandler } from '@helpers';
 
 const checkBodyAndQuery = buildCheckFunction(["body", "query"]);
-const { validationErrorHandler } = require(`${__dirUtil}/helpers`);
 
 exports.register = [
     checkBodyAndQuery("firstName")

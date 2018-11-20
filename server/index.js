@@ -1,10 +1,8 @@
-const express = require("express");
-
-const ApplicationMiddleware	= require(`${__dirMiddleware}/ApplicationMiddleware`);
-const ErrorHandlerMiddleware = require(`${__dirMiddleware}/ErrorHandlerMiddleware`);
-
-const api 		= require("./api");
-const auth 		= require("./auth/auth.route");
+import express from 'express';
+import ApplicationMiddleware from '@middleware/ApplicationMiddleware';
+import ErrorHandlerMiddleware from '@middleware/ErrorHandlerMiddleware';
+import api from '@api';
+import auth from '@auth/auth.route';
 
 class Server {
     constructor() {
