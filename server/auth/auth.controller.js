@@ -1,3 +1,5 @@
+import AuthRepository from "./auth.repository";
+
 const _ = require("lodash");
 const moment = require("moment");
 
@@ -6,8 +8,6 @@ const { User } = require(`${__dirDatabase}/db-connect`);
 const authenticate = require("./authenticate");
 
 const BaseController = require(`${__dirApi}BaseController`);
-
-import AuthRepository from './auth.repository';
 
 class AuthController extends BaseController {
     constructor() {

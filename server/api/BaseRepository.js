@@ -1,28 +1,27 @@
-class BaseRepository
-{
-	constructor(model) {
-		this.model = model;
-	}
+class BaseRepository {
+    constructor(model) {
+        this.model = model;
+    }
 
-	find(query) {
-		if(typeof query == 'object') {
-			// Search by attributes
-			return this.model.findOne(query);
-		}
+    find(query) {
+        if (typeof query === "object") {
+            // Search by attributes
+            return this.model.findOne(query);
+        }
 
-		if(typeof query == 'number') {
-			// Search by id
-			return this.model.findById(query);
-		}
-	}
+        if (typeof query === "number") {
+            // Search by id
+            return this.model.findById(query);
+        }
+    }
 
-	all(query = null) {
-		if(query != null || query != {}) {
-			return this.model.findAll(query);
-		}
+    all(query = null) {
+        if (query != null || query != {}) {
+            return this.model.findAll(query);
+        }
 
-		return this.model.findAll();
-	}
+        return this.model.findAll();
+    }
 }
 
 module.exports = BaseRepository;

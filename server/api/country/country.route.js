@@ -1,9 +1,9 @@
-const ApplicationRoutes = require("./../../ApplicationRoutes");
+const router = require("express").Router();
 const CountryController = require("./country.controller");
 
-class CountryRoutes extends ApplicationRoutes {
+class CountryRoutes {
     constructor() {
-        super();
+        this.router = router;
         this.controller = CountryController;
 
         this.parameterizedRoute();
@@ -12,21 +12,21 @@ class CountryRoutes extends ApplicationRoutes {
     }
 
     parameterizedRoute() {
-        this.router.param("id", (req, res, next, id) => {
-            return this.controller.params(req, res, next, id);
+        this.router.param("id", async (req, res, next, id) => {
+            const response = await this.controller.params(req, res, next, id);
+
+            if (response != undefined) {
+                next(response.errors);
+            }
         });
     }
 
     listAllCountry() {
-        this.router.get("/", (req, res, next) => {
-            return this.controller.index(req, res, next)
-        });
+        this.router.get("/", (req, res, next) => this.controller.index(req, res, next));
     }
 
     getCountryDetails() {
-        this.router.get("/:id", (req, res, next) => {
-            return this.controller.getById(req, res, next)
-        });
+        this.router.get("/:id", (req, res, next) => this.controller.getById(req, res, next));
     }
 }
 

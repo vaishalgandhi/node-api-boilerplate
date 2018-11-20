@@ -1,10 +1,11 @@
+import CountryRepository from "./country.repository";
+import GeneralError from "../../util/generalError";
+
 const logger = require("../../util/logger");
-import CountryRepository from './country.repository';
 
 const BaseController = require(`${__dirApi}BaseController`);
 
-class CountryController extends BaseController
-{
+class CountryController extends BaseController {
     constructor() {
         super();
         this.repository = CountryRepository;
@@ -12,7 +13,7 @@ class CountryController extends BaseController
 
     params(req, res, next, id) {
         if (isNaN(id)) {
-            next(new Error("Id should be numeric"));
+            return super.respondWithError(new GeneralError("Id should be numeric", 422), null, 422);
         }
 
         this.repository

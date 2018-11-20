@@ -3,7 +3,7 @@ class BaseController {
      * respond.
      */
     respond(data, message) {
-        const res = { status: 0 };
+        const res = { status: 1 };
 
         res.status_code = 200;
         res.message = message;
@@ -14,7 +14,7 @@ class BaseController {
     }
 
     respondWithError(error, message, code) {
-        const res = { status: 1 };
+        const res = { status: 0 };
 
         if (code === undefined) {
             code = 500;
