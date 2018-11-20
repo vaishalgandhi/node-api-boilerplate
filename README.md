@@ -35,6 +35,33 @@ Run the database seeders
 
     `npm start`
 
+List of Packages
+----------------
+
+| Package                         | Description                                                             |
+| ------------------------------- | ------------------------------------------------------------------------|
+| bcrypt						  | Library for hashing and salting user passwords.                         |
+| body-parser                     | Node.js body parsing middleware.                                        |
+| colors                          | Terminal string styling done right.                                     |
+| cors                         	  | providing a Connect/Express middleware that can be used to enable CORS	|
+| compression                     | Node.js compression middleware.                                         |
+| dotenv                          | Loads environment variables from .env file.                             |
+| express                         | Node.js web framework.                                                  |
+| express-jwt                     | Middleware that validates JsonWebTokens and sets req.user.              |
+| express-limiter                 | Rate limiting middleware for Express applications.                      |
+| express-validator               | Easy form validation for Express.                                       |
+| helmet                          | Secure Express apps by setting various HTTP headers. 					|
+| jsonwebtoken                    | An implementation of JSON Web Tokens.                                   |
+| lodash                          | JavaScript utility library delivering modularity, performance & extras. |
+| method-override                 | Use HTTP verbs like PUT or DELETE where client doesn't support it. 		|
+| module-alias                    | Create aliases of directories.                                          |
+| moment                          | JavaScript date library.                                                |
+| mysql2                          | MySQL client for Node.js.                                               |
+| nodemailer                      | Node.js library for sending emails.                                     |
+| pug (jade)                      | Template engine for Express.                                            |
+| sequelize                       | HTTP request logger middleware for node.js.                             |
+| sequelize-cli                   | The Sequelize Command Line Interface (CLI) 								|
+
 ## Issues
 
 If you come across any issues please report them [here](https://github.com/vaishalgandhi/node-api-boilerplate/issues).
