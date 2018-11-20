@@ -2,10 +2,10 @@
 require("./server/globals");
 
 // creating server by starting our application
-const app = require(`${__dirServer}`);
+import app from '@server';
 
 // grab the defined port from config file
-const { port } = require(`${__dirServer}config/`);
+import { port } from '@config';
 
 class App {
     constructor() {

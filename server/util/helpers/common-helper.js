@@ -1,7 +1,6 @@
 import _ from "lodash";
 import { validationResult } from "express-validator/check";
-
-const logger = require(`${__dirUtil}/logger`);
+import logger from '@util/logger';
 
 const CommonHelpers = {};
 

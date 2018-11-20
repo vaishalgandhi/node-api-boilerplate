@@ -1,4 +1,4 @@
-const authenticate = require(`${__dirAuth}/authenticate`);
+import authenticate from '@auth/authenticate';
 
 // Authentication middleware is group of two middleware
 const middlewareArray = [

@@ -49,6 +49,7 @@
     "jsonwebtoken": "^8.3.0",
     "lodash": "^4.17.10",
     "method-override": "^3.0.0",
+    "module-alias": "^2.1.0",
     "moment": "^2.22.2",
     "mysql2": "^1.6.1",
     "sequelize": "^4.38.0",
@@ -71,5 +72,16 @@
     "eslint": "^5.7.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0"
+  },
+  "_moduleAliases": {
+    "@root" : ".",
+    "@server" : "server",
+    "@api" : "server/api",
+    "@auth" : "server/auth",
+    "@config" : "server/config",
+    "@db" : "server/database",
+    "@middleware" : "server/middleware",
+    "@util" : "server/util",
+    "@helpers" : "server/util/helpers"
   }
 }

@@ -1,13 +1,11 @@
-const jwt = require("jsonwebtoken");
-const expressJwt = require("express-jwt");
+import jwt from 'jsonwebtoken';
+import expressJwt from 'express-jwt';
+import logger from '@util/logger';
+import { User } from '@db/db-connect';
+import config from '@config';
+import GeneralError from '@util/generalError';
 
-const logger = require(`${__dirUtil}/logger`);
-const { User } = require(`${__dirDatabase}/db-connect`);
-
-const config = require(`${__dirConfig}`);
 const checkToken = expressJwt({ secret: config.jwt_key });
-
-const GeneralError = require(`${__dirUtil}/generalError`);
 
 class AuthMiddleware {
     decodeToken() {
