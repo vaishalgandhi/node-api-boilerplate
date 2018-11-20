@@ -1,23 +1,24 @@
-const ApplicationRoutes = require("./../ApplicationRoutes");
+const router = require("express").Router();
 const verifyUser = require("./authenticate").verifyUser;
-const controller = require("./auth.controller");
+const AuthController = require("./auth.controller");
 const validator = require("./auth.validator");
 
-class AuthRoutes extends ApplicationRoutes {
+class AuthRoutes {
     constructor() {
-        super();
+        this.router = router;
+        this.controller = AuthController;
         this.registerRoute();
         this.loginRoute();
     }
 
     registerRoute() {
-        this.router.post("/register", validator.register, controller.register);
+        this.router.post("/register", validator.register, (req, res, next) => this.controller.register(req, res, next));
     }
 
     loginRoute() {
         // verifyUser middleware will check if given email
         // password is exist in database
-        this.router.post("/login", verifyUser(), controller.login);
+        this.router.post("/login", verifyUser(), (req, res, next) => this.controller.login(req, res, next));
     }
 }
 

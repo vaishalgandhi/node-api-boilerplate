@@ -1,3 +1,5 @@
+import AuthRepository from "./auth.repository";
+
 const _ = require("lodash");
 const moment = require("moment");
 
@@ -8,12 +10,17 @@ const authenticate = require("./authenticate");
 const BaseController = require(`${__dirApi}BaseController`);
 
 class AuthController extends BaseController {
+    constructor() {
+        super();
+        this.repository = AuthRepository;
+    }
+
     /**
      * @api {post} auth/register Registration
      * @apiGroup Authentication
      *
-     * @apiParam {String} first_name First name
-     * @apiParam {String} last_name Last name
+     * @apiParam {String} firstName First name
+     * @apiParam {String} lastName Last name
      * @apiParam {String} email Email Address
      * @apiParam {String} password Password
      * @apiParam {String} dob Date of birth (DD-MM-YYYY)
@@ -58,7 +65,8 @@ class AuthController extends BaseController {
             status: 1,
         });
 
-        User.create(input)
+        this.repository
+            .registerUser(input)
             .then((user) => {
                 res.send(super.respond({ user: user.toJson() }, "User created successfully"));
             })

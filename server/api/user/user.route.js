@@ -1,8 +1,18 @@
 const router = require("express").Router();
-const controller = require("./user.controller");
+const UserController = require("./user.controller");
 
 const authMiddleware = require(`${__dirMiddleware}/authMiddleware`);
 
-router.get("/loggedin-user", authMiddleware, controller.loggedInUser);
+class UserRoutes {
+    constructor() {
+        this.router = router;
+        this.controller = UserController;
+        this.getLoggedInUserDetails();
+    }
 
-module.exports = router;
+    getLoggedInUserDetails() {
+        this.router.get("/loggedin-user", authMiddleware, (req, res, next) => this.controller.loggedInUser(req, res, next));
+    }
+}
+
+module.exports = new UserRoutes().router;

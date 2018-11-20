@@ -11,13 +11,9 @@ DatabaseHelper.sequelizeErrorHandler = (sequelizeError) => {
                 errorArray.push(element.message);
             });
 
-            logger.error(errorArray);
-
             return errorArray;
         }
     }
-
-    logger.error(sequelizeError);
 
     return ["something went wrong"];
 };

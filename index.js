@@ -12,7 +12,6 @@ class App {
         this.port = port;
         this.app = app;
         this.initalizeApplication();
-        this.handleUncaughtException();
         this.handleProcessEvent();
     }
 
@@ -22,23 +21,26 @@ class App {
         console.log(`listening on http://localhost:${this.port}`);
     }
 
-    // Handle Uncaught Exception
-    handleUncaughtException() {
-        process.on("uncaughtException", () => {
-            process.exit(1);
-        });
-    }
-
     // Handle Exit Event
     handleProcessEvent() {
         process
-        // Handle normal exits
+            // Handle normal exits
             .on("exit", (code) => {
                 process.exit(code);
             })
-        // Handle CTRL+C
+            // Handle CTRL+C
             .on("SIGINT", () => {
                 process.exit(0);
+            })
+            // Handle Uncaught Exception
+            .on("uncaughtException", (error) => {
+                console.log(error);
+                process.exit(1);
+            })
+            // Handle Uncaught Rejection
+            .on("unhandledRejection", (error) => {
+                console.log(error);
+                process.exit(1);
             });
     }
 }

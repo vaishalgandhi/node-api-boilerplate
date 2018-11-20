@@ -1,10 +1,33 @@
 const router = require("express").Router();
-const controller = require("./country.controller");
+const CountryController = require("./country.controller");
 
-router.param("id", controller.params);
+class CountryRoutes {
+    constructor() {
+        this.router = router;
+        this.controller = CountryController;
 
-router.get("/", controller.index);
+        this.parameterizedRoute();
+        this.listAllCountry();
+        this.getCountryDetails();
+    }
 
-router.get("/:id", controller.getById);
+    parameterizedRoute() {
+        this.router.param("id", async (req, res, next, id) => {
+            const response = await this.controller.params(req, res, next, id);
 
-module.exports = router;
+            if (response != undefined) {
+                next(response.errors);
+            }
+        });
+    }
+
+    listAllCountry() {
+        this.router.get("/", (req, res, next) => this.controller.index(req, res, next));
+    }
+
+    getCountryDetails() {
+        this.router.get("/:id", (req, res, next) => this.controller.getById(req, res, next));
+    }
+}
+
+module.exports = new CountryRoutes().router;

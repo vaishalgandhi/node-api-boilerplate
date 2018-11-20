@@ -1,10 +1,10 @@
-const ApplicationRoutes = require("./../ApplicationRoutes");
+const router = require("express").Router();
 const countryModule = require("./country/country.route");
 const userModule = require("./user/user.route");
 
-class ApiRoutes extends ApplicationRoutes {
+class ApiRoutes {
     constructor() {
-        super();
+        this.router = router;
         this.countryRoute();
         this.userRoute();
     }

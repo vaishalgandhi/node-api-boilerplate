@@ -4,12 +4,12 @@ const checkBodyAndQuery = buildCheckFunction(["body", "query"]);
 const { validationErrorHandler } = require(`${__dirUtil}/helpers`);
 
 exports.register = [
-    checkBodyAndQuery("first_name")
+    checkBodyAndQuery("firstName")
         .trim()
         .escape()
         .exists({ checkFalsy: true })
         .withMessage("First name field is required"),
-    checkBodyAndQuery("last_name")
+    checkBodyAndQuery("lastName")
         .trim()
         .escape()
         .exists({ checkFalsy: true })
