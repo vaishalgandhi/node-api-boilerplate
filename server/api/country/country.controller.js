@@ -1,9 +1,8 @@
 import CountryRepository from "./country.repository";
-import GeneralError from "../../util/generalError";
-
-const logger = require("../../util/logger");
-
-const BaseController = require(`@api/BaseController`);
+import GeneralError from "@util/generalError";
+import logger from '@util/logger';
+import BaseController from '@api/BaseController';
+import { to } from '@helpers';
 
 class CountryController extends BaseController {
     constructor() {
@@ -17,10 +16,7 @@ class CountryController extends BaseController {
         }
 
         this.repository
-            .find({
-                where: { id },
-                include: ["State"],
-            })
+            .getCountryDetailsById(id)
             .then((country) => {
                 req.country = country;
                 next();

@@ -23,4 +23,16 @@ CommonHelpers.validationErrorHandler = (req, res, next) => {
 // Generate random number of specified length
 CommonHelpers.randomNumber = length => Math.floor(Math.pow(10, length - 1) + Math.random() * (Math.pow(10, length) - Math.pow(10, length - 1) - 1));
 
+// Handler that resolve promise success response
+// to an array with the return data as second item
+CommonHelpers.to = (promise) => {
+	return promise
+		.then(data => {
+			return [null, data];
+		})
+		.catch(err => {
+			return [err, null]
+		});
+}
+
 module.exports = CommonHelpers;
