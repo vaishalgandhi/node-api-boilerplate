@@ -2,7 +2,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import { sequelizeErrorHandler } from '@helpers';
 import { User } from '@db/db-connect';
-import authenticate from './authenticate';
+import authenticate from './authenticate.service';
 import BaseController from '@api/BaseController';
 import AuthRepository from "./auth.repository";
 

@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const verifyUser = require("./authenticate").verifyUser;
+const verifyUser = require("./authenticate.service").verifyUser;
 const AuthController = require("./auth.controller");
 const validator = require("./auth.validator");
 

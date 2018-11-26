@@ -1,8 +1,9 @@
-const expressLimiter = require("express-limiter");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const helmet = require("helmet");
-const override = require("method-override");
+import expressLimiter from 'express-limiter';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import helmet from 'helmet';
+import override from 'method-override';
+import compression from 'compression';
 
 // setup global middleware here
 class ApplicationMiddleware {
@@ -14,6 +15,7 @@ class ApplicationMiddleware {
         this.cors();
         this.helmet();
         this.override();
+        this.compression();
     }
 
     // Limiting the number of request
@@ -44,6 +46,23 @@ class ApplicationMiddleware {
     // Use HTTP verbs such as PUT or DELETE in places where the client doesn't support it
     override() {
         this.app.use(override());
+    }
+
+    // Attempt to compress response bodies
+    compression() {
+        this.app.use(
+            compression({
+                filter: (req, res) => {
+                    if (req.headers['x-no-compression']) {
+                        // don't compress responses with this request header
+                        return false;
+                    }
+
+                    // fallback to standard filter function
+                    return compression.filter(req, res)
+                }
+            })
+        );
     }
 }
 
