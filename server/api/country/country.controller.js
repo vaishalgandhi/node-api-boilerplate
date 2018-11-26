@@ -2,7 +2,7 @@ import CountryRepository from "./country.repository";
 import GeneralError from "@util/generalError";
 import logger from '@util/logger';
 import BaseController from '@api/BaseController';
-import { to } from '@helpers';
+import { transformPromise } from '@helpers';
 
 class CountryController extends BaseController {
     constructor() {
@@ -10,24 +10,23 @@ class CountryController extends BaseController {
         this.repository = CountryRepository;
     }
 
-    params(req, res, next, id) {
+    async params(req, res, next, id) {
         if (isNaN(id)) {
             return super.respondWithError(new GeneralError("Id should be numeric", 422), null, 422);
         }
 
-        this.repository
-            .getCountryDetailsById(id)
-            .then((country) => {
-                req.country = country;
-                next();
-            })
-            .catch((err) => {
-                logger.log(err);
-                next(err);
-            });
+        const [error, country] = await transformPromise(this.repository.getCountryDetailsById(id));
+
+        if(error !== null) {
+            logger.error(error);
+            next(err);
+        }
+
+        req.country = country;
+        next();
     }
 
-    index(req, res, next) {
+    async index(req, res, next) {
         const queryString = req.query;
         const queryConfig = {};
 
@@ -35,14 +34,15 @@ class CountryController extends BaseController {
             queryConfig.attributes = ["id", "name"];
         }
 
-        this.repository
-            .all(queryConfig)
-            .then((countries) => {
-                res.send(super.respond(countries, null));
-            }).catch((error) => {
-                logger.log(error);
-                res.send(super.respondWithError(error, null, 500));
-            });
+        const [error, countries] = await transformPromise(this.repository.list(queryConfig));
+
+        if(error !== null) {
+            logger.error(error);
+            res.send(super.respondWithError(error, null, 500));
+        }
+
+
+        res.send(super.respond(countries, null));
     }
 
     getById(req, res, next) {

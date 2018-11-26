@@ -1,4 +1,5 @@
 import { DataTypes } from "sequelize";
+import moment from 'moment';
 
 export default class Country {
     static definition = {
@@ -51,4 +52,14 @@ export default class Country {
             },
         });
     };
+
+    // This method will return status in text format
+    statusText() {
+        return this.status == 1 ? 'Active' : 'Inactive';
+    }
+
+    // This method will return created at date in display format
+    createdAtDisplay() {
+        return moment(this.created_at, "YYYY-MM-DD H:m").format("DD-MM-YYYY H:m");
+    }
 }

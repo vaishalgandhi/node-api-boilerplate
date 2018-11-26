@@ -25,8 +25,8 @@ CommonHelpers.randomNumber = length => Math.floor(Math.pow(10, length - 1) + Mat
 
 // Handler that resolve promise success response
 // to an array with the return data as second item
-CommonHelpers.to = (promise) => {
-	return promise
+CommonHelpers.transformPromise = (promise) => {
+    return promise
 		.then(data => {
 			return [null, data];
 		})
