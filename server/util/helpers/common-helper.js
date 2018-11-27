@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { validationResult } from "express-validator/check";
-import logger from '@util/logger';
+import logger from "@util/logger";
 
 const CommonHelpers = {};
 
@@ -25,14 +25,8 @@ CommonHelpers.randomNumber = length => Math.floor(Math.pow(10, length - 1) + Mat
 
 // Handler that resolve promise success response
 // to an array with the return data as second item
-CommonHelpers.transformPromise = (promise) => {
-    return promise
-		.then(data => {
-			return [null, data];
-		})
-		.catch(err => {
-			return [err, null]
-		});
-}
+CommonHelpers.transformPromise = promise => promise
+    .then(data => [null, data])
+    .catch(err => [err, null]);
 
 module.exports = CommonHelpers;

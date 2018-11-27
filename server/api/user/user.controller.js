@@ -1,6 +1,6 @@
-import UserRepository from "./user.repository";
 import GeneralError from "@util/generalError";
-import BaseController from '@api/BaseController';
+import BaseController from "@api/BaseController";
+import UserRepository from "./user.repository";
 
 class UserController extends BaseController {
     constructor() {

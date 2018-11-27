@@ -75,6 +75,7 @@ export default class User {
 
     // This is hook that will call before any user is created
     static beforeCreate(user) {
+        console.log('beforeCreate');
         user.password = user.generatePasswordHash(user.password);
     }
 

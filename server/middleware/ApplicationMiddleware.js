@@ -1,9 +1,9 @@
-import expressLimiter from 'express-limiter';
-import bodyParser from 'body-parser';
-import cors from 'cors';
-import helmet from 'helmet';
-import override from 'method-override';
-import compression from 'compression';
+import expressLimiter from "express-limiter";
+import bodyParser from "body-parser";
+import cors from "cors";
+import helmet from "helmet";
+import override from "method-override";
+import compression from "compression";
 
 // setup global middleware here
 class ApplicationMiddleware {
@@ -53,15 +53,15 @@ class ApplicationMiddleware {
         this.app.use(
             compression({
                 filter: (req, res) => {
-                    if (req.headers['x-no-compression']) {
+                    if (req.headers["x-no-compression"]) {
                         // don't compress responses with this request header
                         return false;
                     }
 
                     // fallback to standard filter function
-                    return compression.filter(req, res)
-                }
-            })
+                    return compression.filter(req, res);
+                },
+            }),
         );
     }
 }

@@ -1,8 +1,8 @@
 import CountryRepository from "./country.repository";
 import GeneralError from "@util/generalError";
-import logger from '@util/logger';
-import BaseController from '@api/BaseController';
-import { transformPromise } from '@helpers';
+import logger from "@util/logger";
+import BaseController from "@api/BaseController";
+import { transformPromise } from "@helpers";
 
 class CountryController extends BaseController {
     constructor() {
@@ -17,7 +17,7 @@ class CountryController extends BaseController {
 
         const [error, country] = await transformPromise(this.repository.getCountryDetailsById(id));
 
-        if(error !== null) {
+        if (error !== null) {
             logger.error(error);
             next(err);
         }
@@ -36,7 +36,7 @@ class CountryController extends BaseController {
 
         const [error, countries] = await transformPromise(this.repository.list(queryConfig));
 
-        if(error !== null) {
+        if (error !== null) {
             logger.error(error);
             res.send(super.respondWithError(error, null, 500));
         }
