@@ -1,4 +1,4 @@
-import authenticate from '@auth/authenticate.service';
+import authenticate from "@auth/authenticate.service";
 
 // Authentication middleware is group of two middleware
 const middlewareArray = [

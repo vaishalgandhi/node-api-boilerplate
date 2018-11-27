@@ -1,5 +1,5 @@
-import logger from '@util/logger';
-import { logging } from '@config';
+import logger from "@util/logger";
+import { logging } from "@config";
 
 module.exports = (error, req, res, next) => {
     const errorResponse = {

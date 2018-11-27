@@ -1,20 +1,19 @@
-import _ from 'lodash';
+import _ from "lodash";
 
-class CountryMapper
-{
+class CountryMapper {
     // this will transform the object
     // to desire output
     map(country) {
         const object = {
-            'id' : country.id,
-            'name' : country.name,
-            'code' : country.sortname,
-            'status' : country.statusText(),
-            'created_at' : country.createdAtDisplay(),
-            'updated_at' : country.updated_at
+            id: country.id,
+            name: country.name,
+            code: country.sortname,
+            status: country.statusText(),
+            created_at: country.createdAtDisplay(),
+            updated_at: country.updated_at,
         };
 
-        if(country.hasOwnProperty('State')) {
+        if (country.hasOwnProperty("State")) {
             object.State = country.State;
         }
 
@@ -24,11 +23,8 @@ class CountryMapper
     collection(countries) {
         const self = this;
 
-        return _.map(countries, function(country) {
-            return self.map(country);
-        });
+        return _.map(countries, country => self.map(country));
     }
-
-};
+}
 
 module.exports = new CountryMapper();
