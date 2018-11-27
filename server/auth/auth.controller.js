@@ -1,6 +1,5 @@
 import _ from "lodash";
 import moment from "moment";
-import bcrypt from "bcrypt"
 import { sequelizeErrorHandler } from "@helpers";
 import { User } from "@db/db-connect";
 import BaseController from "@api/BaseController";
@@ -11,7 +10,6 @@ class AuthController extends BaseController {
     constructor() {
         super();
         this.repository = AuthRepository;
-        this.salt = bcrypt.genSaltSync(10);
     }
 
     /**
@@ -58,7 +56,6 @@ class AuthController extends BaseController {
     register(req, res, next) {
         // Converting dob format
         req.body.dob = moment(req.body.dob, "DD-MM-YYYY").format("YYYY-MM-DD");
-        req.body.password = bcrypt.hashSync(req.body.password, this.salt);
 
         // adding default active status in input object
         const input = _.extend(req.body, {
