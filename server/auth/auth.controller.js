@@ -1,9 +1,9 @@
-import _ from 'lodash';
-import moment from 'moment';
-import { sequelizeErrorHandler } from '@helpers';
-import { User } from '@db/db-connect';
-import authenticate from './authenticate.service';
-import BaseController from '@api/BaseController';
+import _ from "lodash";
+import moment from "moment";
+import { sequelizeErrorHandler } from "@helpers";
+import { User } from "@db/db-connect";
+import BaseController from "@api/BaseController";
+import authenticate from "./authenticate.service";
 import AuthRepository from "./auth.repository";
 
 class AuthController extends BaseController {

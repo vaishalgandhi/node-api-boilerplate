@@ -1,11 +1,11 @@
 // Requireing globals will set all global variables
-require("./server/globals");
-
 // creating server by starting our application
-import app from '@server';
+import app from "@server";
 
 // grab the defined port from config file
-import { port } from '@config';
+import { port } from "@config";
+
+require("./server/globals");
 
 class App {
     constructor() {

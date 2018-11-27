@@ -1,9 +1,9 @@
-import jwt from 'jsonwebtoken';
-import expressJwt from 'express-jwt';
-import logger from '@util/logger';
-import { User } from '@db/db-connect';
-import config from '@config';
-import GeneralError from '@util/generalError';
+import jwt from "jsonwebtoken";
+import expressJwt from "express-jwt";
+import logger from "@util/logger";
+import { User } from "@db/db-connect";
+import config from "@config";
+import GeneralError from "@util/generalError";
 
 const checkToken = expressJwt({ secret: config.jwt_key });
 

@@ -1,5 +1,5 @@
-import { buildCheckFunction } from 'express-validator/check';
-import { validationErrorHandler } from '@helpers';
+import { buildCheckFunction } from "express-validator/check";
+import { validationErrorHandler } from "@helpers";
 
 const checkBodyAndQuery = buildCheckFunction(["body", "query"]);
 

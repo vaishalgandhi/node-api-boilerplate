@@ -67,16 +67,17 @@ export default class User {
     static modelOptions = {
         freezeTableName: true,
         tableName: 'users',
+        hooks: {
+            // This is hook that will call before any user is created
+            beforeCreate : user => {
+                user.password = user.generatePasswordHash(user.password);
+            }
+        }
     }
 
     // All relationships goes here
     static associate(models) {
     };
-
-    // This is hook that will call before any user is created
-    static beforeCreate(user) {
-        user.password = user.generatePasswordHash(user.password);
-    }
 
     // This method will fetch user by id
     static getUserById(id = null) {

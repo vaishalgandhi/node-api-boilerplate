@@ -1,8 +1,8 @@
-import express from 'express';
-import ApplicationMiddleware from '@middleware/ApplicationMiddleware';
-import ErrorHandlerMiddleware from '@middleware/ErrorHandlerMiddleware';
-import api from '@api';
-import auth from '@auth/auth.route';
+import express from "express";
+import ApplicationMiddleware from "@middleware/ApplicationMiddleware";
+import ErrorHandlerMiddleware from "@middleware/ErrorHandlerMiddleware";
+import api from "@api";
+import auth from "@auth/auth.route";
 
 class Server {
     constructor() {
