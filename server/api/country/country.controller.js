@@ -34,7 +34,7 @@ class CountryController extends BaseController {
             queryConfig.attributes = ["id", "name"];
         }
 
-        const [error, countries] = await transformPromise(this.repository.list(queryConfig));
+        const [error, countries] = await transformPromise(this.repository.paginate(queryConfig));
 
         if (error !== null) {
             logger.error(error);
@@ -42,7 +42,7 @@ class CountryController extends BaseController {
         }
 
 
-        res.send(super.respond(countries, null));
+        res.send(super.respondWithPagination(countries, queryConfig));
     }
 
     getById(req, res, next) {
