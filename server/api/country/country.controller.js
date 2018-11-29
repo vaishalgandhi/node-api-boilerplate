@@ -28,7 +28,7 @@ class CountryController extends BaseController {
 
     async index(req, res, next) {
         const queryString = req.query;
-        const queryConfig = {};
+        const queryConfig = super.queryParameter(queryString);
 
         if (queryString.hasOwnProperty("dropdown") && queryString.dropdown == "true") {
             queryConfig.attributes = ["id", "name"];
@@ -38,7 +38,7 @@ class CountryController extends BaseController {
 
         if (error !== null) {
             logger.error(error);
-            res.send(super.respondWithError(error, null, 500));
+            res.send(super.respondWithError(error, error.error_message, 500));
         }
 
 
