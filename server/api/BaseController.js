@@ -27,29 +27,44 @@ class BaseController {
      * respond.
      */
     respond(data, message) {
-        const res = { status: 1 };
+        return {
+            status: 1,
+            status_code: 200,
+            errors: null,
+            message: message,
+            data : data
+        };
+    }
 
-        res.status_code = 200;
-        res.message = message;
-        res.data = data;
-        res.errors = null;
-
-        return res;
+    /**
+     * respond.
+     */
+    respondWithPagination(data, params) {
+        return {
+            status: 1,
+            status_code: 200,
+            errors: null,
+            message: "",
+            data : data.rows,
+            paginate: {
+                current_page: (params.offset / params.limit) + 1,
+                per_page: params.limit,
+                total_count: data.count,
+                total_page: Math.ceil(data.count / params.limit),
+                order: params.order,
+                filter: params.filter
+            }
+        };
     }
 
     respondWithError(error, message, code) {
-        const res = { status: 0 };
-
-        if (code === undefined) {
-            code = 500;
-        }
-
-        res.status_code = code;
-        res.message = message;
-        res.errors = error;
-        res.data = [];
-
-        return res;
+        return {
+            status: 0,
+            status_code: code || 500,
+            errors: error,
+            message: message,
+            data : []
+        };
     }
 }
 

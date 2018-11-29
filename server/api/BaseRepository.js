@@ -22,6 +22,10 @@ class BaseRepository {
 
         return this.model.findAll();
     }
+
+    paginate(query = null) {
+        return this.model.findAndCountAll(query);
+    }
 }
 
 module.exports = BaseRepository;
